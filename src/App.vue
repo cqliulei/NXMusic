@@ -8,6 +8,19 @@ import { ref, onMounted, defineComponent, nextTick } from 'vue'
 
 import { getFolderFile } from '@/api/songs.js';
 
+
+// import { ElMessageBox } from 'element-plus'
+// const handleClose = (done => {
+//   ElMessageBox.confirm('Are you sure to close this dialog?')
+//     .then(() => {
+//       done()
+//     })
+//     .catch(() => {
+//       // catch error
+//     })
+// })
+
+
 const zIndex = 3000;
 const size = 'small';
 
@@ -27,7 +40,7 @@ function SongClick(music, list, type) {
     initMusic.value = music;
     itemLists.value = [];
     getFolderFile({ name: filePath }).then(res => {
-    // res = JSON.parse(res);
+      // res = JSON.parse(res);
       if (res.code == 200) {
         fileTreeData = res.data;
       }
@@ -132,6 +145,12 @@ onMounted(() => {
 <template>
   <el-config-provider :size="size" :z-index="zIndex">
     <div class="nxmusic">
+
+      <!-- <el-button type="primary" @click="handleClose">
+        Confirm
+      </el-button>
+      -->
+      
       <header>
         <h2>音乐库</h2>
         <el-tabs v-model="tabActiveName" class="nxmusic-tabs" @tab-change="handleClick">
@@ -219,7 +238,7 @@ onMounted(() => {
                   </el-icon>
 
                   <el-text class="mx-1" type="primary" size="large" style="font-weight: bold;">{{
-                    song.title }}</el-text><el-tag style="margin-left:10px">共{{ song.list.length }}首</el-tag>
+    song.title }}</el-text><el-tag style="margin-left:10px">共{{ song.list.length }}首</el-tag>
                 </template>
 
                 <el-card class="music-box-card">
@@ -236,10 +255,11 @@ onMounted(() => {
                         <el-collapse-item :name="'schild' + slist.title">
                           <template v-slot:title>
 
-                            <div class="item"> <el-text class="mx-1" type="primary" style="font-weight: bold;">{{ slindex
-                              + 1 }}.
+                            <div class="item"> <el-text class="mx-1" type="primary" style="font-weight: bold;">{{
+    slindex
+    + 1 }}.
                                 {{
-                                  slist.title }}
+    slist.title }}
                               </el-text>
                               <el-tag style="margin-left:10px">共{{ slist.list.length }}首</el-tag>
                             </div>
